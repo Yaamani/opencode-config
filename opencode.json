@@ -1,0 +1,21 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "*": "ask",
+    "read": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "edit": "ask",
+    "bash": {
+      "*": "ask",
+      "ls*": "allow",
+      "cd*": "allow",
+      "pwd*": "allow",
+      "dir*": "allow",
+      "Get-ChildItem*": "allow",
+      "Get-Location*": "allow",
+      "Set-Location*": "allow",
+      "echo*": "allow"
+    }
+  }
+}
