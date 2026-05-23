@@ -5,7 +5,8 @@
     "read": "allow",
     "glob": "allow",
     "grep": "allow",
-    "edit": "ask",
+    "todowrite": "allow",
+    "edit": "allow",
     "bash": {
       "*": "ask",
       "ls*": "allow",
