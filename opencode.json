@@ -16,6 +16,7 @@
       "Get-ChildItem*": "allow",
       "Get-Location*": "allow",
       "Set-Location*": "allow",
+      "Test-Path*": "allow",
       "echo*": "allow"
     }
   },
