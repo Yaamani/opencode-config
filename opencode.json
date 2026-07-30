@@ -20,6 +20,28 @@
       "echo*": "allow"
     }
   },
+  "provider": {
+    "openrouter": {
+      "models": {
+        "z-ai/glm-5.2": {
+          "options": {
+            "provider": {
+              "only":  ["decart", "streamlake", "novita", "baidu", "deepinfra", "coreweave", "alibaba", "siliconflow", "gmicloud"],
+              "allow_fallbacks": false
+            }
+          }
+        },
+        "deepseek/deepseek-v4-pro": {
+          "options": {
+            "provider": {
+              "only":  ["baidu", "streamlake", "novita", "gmicloud", "deepinfra"],
+              "allow_fallbacks": false
+            }
+          }
+        }
+      }
+    }
+  },
   "mcp": {
     "playwright": {
       "type": "local",
