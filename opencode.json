@@ -16,8 +16,11 @@
       "Get-ChildItem*": "allow",
       "Get-Location*": "allow",
       "Set-Location*": "allow",
+      "Get-Content*": "allow",
       "Test-Path*": "allow",
-      "echo*": "allow"
+      "echo*": "allow",
+      "cat*": "allow",
+      "rg*": "allow",
     }
   },
   "provider": {
