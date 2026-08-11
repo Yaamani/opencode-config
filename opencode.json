@@ -21,6 +21,9 @@
       "echo*": "allow",
       "cat*": "allow",
       "rg*": "allow",
+      "git log*": "allow",
+      "git status*": "allow",
+      "git diff*": "allow",
     }
   },
   "provider": {
