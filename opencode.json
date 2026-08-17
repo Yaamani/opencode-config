@@ -24,6 +24,13 @@
       "git log*": "allow",
       "git status*": "allow",
       "git diff*": "allow",
+      "git ls-files*": "allow",
+      "pnpm test*": "allow",
+      "pnpm build*": "allow",
+      "pnpm exec prettier*": "allow",
+      "pnpm exec eslint*": "allow",
+      "pnpm exec vitest*": "allow",
+      "pnpm exec tsc*": "allow",
     }
   },
   "provider": {
