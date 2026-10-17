@@ -22,6 +22,16 @@
       "echo*": "allow",
       "cat*": "allow",
       "rg*": "allow",
+      "git log*": "allow",
+      "git status*": "allow",
+      "git diff*": "allow",
+      "git ls-files*": "allow",
+      "pnpm test*": "allow",
+      "pnpm build*": "allow",
+      "pnpm exec prettier*": "allow",
+      "pnpm exec eslint*": "allow",
+      "pnpm exec vitest*": "allow",
+      "pnpm exec tsc*": "allow",
     }
   },
   "provider": {
@@ -51,6 +61,22 @@
       "type": "local",
       "command": ["npx", "@playwright/mcp@latest"],
       "enabled": false
+    },
+    "redmine": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "--from",
+        "mcp-redmine==2026.08.01.002543",
+        "--refresh-package",
+        "mcp-redmine",
+        "mcp-redmine"
+      ],
+      "enabled": false,
+      "environment": {
+        "REDMINE_URL": "{env:REDMINE_URL}",
+        "REDMINE_API_KEY": "{env:REDMINE_API_KEY}",
+      }
     }
   }
 }
