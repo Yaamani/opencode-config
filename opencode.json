@@ -1,44 +1,44 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "subagent_depth": 2,
-  "permission": {
-    "*": "ask",
-    "read": "allow",
-    "glob": "allow",
-    "grep": "allow",
-    "todowrite": "allow",
-    "edit": "allow",
-    "bash": {
-      "*": "ask",
-      "ls*": "allow",
-      "cd*": "allow",
-      "pwd*": "allow",
-      "dir*": "allow",
-      "Get-ChildItem*": "allow",
-      "Get-Location*": "allow",
-      "Set-Location*": "allow",
-      "Get-Content*": "allow",
-      "Test-Path*": "allow",
-      "echo*": "allow",
-      "cat*": "allow",
-      "rg*": "allow",
-      "git log*": "allow",
-      "git status*": "allow",
-      "git diff*": "allow",
-      "git ls-files*": "allow",
-      "pnpm test*": "allow",
-      "pnpm build*": "allow",
-      "pnpm exec prettier*": "allow",
-      "pnpm exec eslint*": "allow",
-      "pnpm exec vitest*": "allow",
-      "pnpm exec tsc*": "allow",
-    }
+  "experimental": {
+    "todo": true,
+    "subagent_depth": 2
   },
-  "provider": {
+  "permissions": [
+    { "action": "*", "resource": "*", "effect": "ask" },
+    { "action": "read", "resource": "*", "effect": "allow" },
+    { "action": "glob", "resource": "*", "effect": "allow" },
+    { "action": "grep", "resource": "*", "effect": "allow" },
+    { "action": "edit", "resource": "*", "effect": "allow" },
+    { "action": "shell", "resource": "*", "effect": "ask" },
+    { "action": "shell", "resource": "ls*", "effect": "allow" },
+    { "action": "shell", "resource": "cd*", "effect": "allow" },
+    { "action": "shell", "resource": "pwd*", "effect": "allow" },
+    { "action": "shell", "resource": "dir*", "effect": "allow" },
+    { "action": "shell", "resource": "Get-ChildItem*", "effect": "allow" },
+    { "action": "shell", "resource": "Get-Location*", "effect": "allow" },
+    { "action": "shell", "resource": "Set-Location*", "effect": "allow" },
+    { "action": "shell", "resource": "Get-Content*", "effect": "allow" },
+    { "action": "shell", "resource": "Test-Path*", "effect": "allow" },
+    { "action": "shell", "resource": "echo*", "effect": "allow" },
+    { "action": "shell", "resource": "cat*", "effect": "allow" },
+    { "action": "shell", "resource": "rg*", "effect": "allow" },
+    { "action": "shell", "resource": "git log*", "effect": "allow" },
+    { "action": "shell", "resource": "git status*", "effect": "allow" },
+    { "action": "shell", "resource": "git diff*", "effect": "allow" },
+    { "action": "shell", "resource": "git ls-files*", "effect": "allow" },
+    { "action": "shell", "resource": "pnpm test*", "effect": "allow" },
+    { "action": "shell", "resource": "pnpm build*", "effect": "allow" },
+    { "action": "shell", "resource": "pnpm exec prettier*", "effect": "allow" },
+    { "action": "shell", "resource": "pnpm exec eslint*", "effect": "allow" },
+    { "action": "shell", "resource": "pnpm exec vitest*", "effect": "allow" },
+    { "action": "shell", "resource": "pnpm exec tsc*", "effect": "allow" }
+  ],
+  "providers": {
     "openrouter": {
       "models": {
         "z-ai/glm-5.2": {
-          "options": {
+          "body": {
             "provider": {
               "only":  ["decart", "streamlake", "novita", "baidu", "deepinfra", "coreweave", "alibaba", "siliconflow", "gmicloud"],
               "allow_fallbacks": false
@@ -46,7 +46,7 @@
           }
         },
         "deepseek/deepseek-v4-pro": {
-          "options": {
+          "body": {
             "provider": {
               "only":  ["baidu", "streamlake", "novita", "gmicloud", "deepinfra"],
               "allow_fallbacks": false
@@ -57,25 +57,27 @@
     }
   },
   "mcp": {
-    "playwright": {
-      "type": "local",
-      "command": ["npx", "@playwright/mcp@latest"],
-      "enabled": false
-    },
-    "redmine": {
-      "type": "local",
-      "command": [
-        "uvx",
-        "--from",
-        "mcp-redmine==2026.08.01.002543",
-        "--refresh-package",
-        "mcp-redmine",
-        "mcp-redmine"
-      ],
-      "enabled": false,
-      "environment": {
-        "REDMINE_URL": "{env:REDMINE_URL}",
-        "REDMINE_API_KEY": "{env:REDMINE_API_KEY}",
+    "servers": {
+      "playwright": {
+        "type": "local",
+        "command": ["npx", "@playwright/mcp@latest"],
+        "disabled": true
+      },
+      "redmine": {
+        "type": "local",
+        "command": [
+          "uvx",
+          "--from",
+          "mcp-redmine==2026.08.01.002543",
+          "--refresh-package",
+          "mcp-redmine",
+          "mcp-redmine"
+        ],
+        "disabled": true,
+        "environment": {
+          "REDMINE_URL": "{env:REDMINE_URL}",
+          "REDMINE_API_KEY": "{env:REDMINE_API_KEY}",
+        }
       }
     }
   }
