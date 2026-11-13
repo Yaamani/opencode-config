@@ -58,6 +58,17 @@
   },
   "mcp": {
     "servers": {
+      "ssh-mcp": {
+        "type": "local",
+        "command": ["npx", "-y", "ssh-mcp@latest"],
+        "disabled": true,
+        "environment": {
+          "SSH_MCP_GISCON_DEVELOPMENT_COM_PASSWORD": "{env:SSH_MCP_GISCON_DEVELOPMENT_COM_PASSWORD}",
+          "SSH_MCP_GISCON_DEVELOPMENT_COM_SUDO_PASSWORD": "{env:SSH_MCP_GISCON_DEVELOPMENT_COM_PASSWORD}",
+          "SSH_MCP_GISCON_DEV_PASSWORD": "{env:SSH_MCP_GISCON_DEV_PASSWORD}",
+          "SSH_MCP_GISCON_DEV_SUDO_PASSWORD": "{env:SSH_MCP_GISCON_DEV_PASSWORD}"
+        }
+      },
       "playwright": {
         "type": "local",
         "command": ["npx", "@playwright/mcp@latest"],
