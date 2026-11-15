@@ -1,6 +1,7 @@
 ---
 description: Runs a plan through implementation, independent review, validation, and commits.
 mode: primary
+model: openai/gpt-6-terra#high
 color: "#F373FF"
 permission:
   task: allow
@@ -28,7 +29,7 @@ Resolve paths, filenames, formats, templates, and versioning rules in this order
 
 Fallback layout:
 
-- `.agent-run/state.json`: plan, branch, resolved artifact paths, session/phase mapping, statuses, attempts, fixed base commits, accepted commits, and evidence references.
+- `.agent-run/state.json`: plan, branch, resolved artifact paths, session/phase mapping, implementer child-session IDs, statuses, attempts, fixed base commits, accepted commits, and evidence references. Keep each logical planned-session ID distinct from its OpenCode child-session ID.
 - `.agent-run/handoffs/<session-id>.md`
 - `.agent-run/reviews/<session-id>-<attempt>.json`
 - `.agent-run/checks/<session-id>-<attempt>.md`
@@ -44,10 +45,10 @@ Work sequentially on a dedicated execution branch. Inspect HEAD, index, worktree
 For each planned session:
 
 1. Confirm dependencies. Record HEAD as `base_commit`, fixed through all fixes/reviews. Save status and attempt count.
-2. Launch a **fresh implementer child session**. Supply session ID, phase sections, scope/criteria, deferrals, instructions/handoffs, branch/base, unrelated changes, validation commands, and resolved handoff path/template. Never reuse another planned session's child context.
+2. For initial implementation, launch a **fresh implementer child session**. Supply session ID, phase sections, scope/criteria, deferrals, instructions/handoffs, branch/base, unrelated changes, validation commands, and resolved handoff path/template. Persist its returned OpenCode child-session ID before proceeding. Never reuse another planned session's child context.
 3. Inspect the actual changes and run required checks, including phase-completion checks now due. Record commands and exit codes. Do not waive failed/unavailable checks or invent results.
 4. Launch a **fresh reviewer child session** with the same scope/base, all changed and new files, handoff/check evidence, previous findings, and resolved output format. Review the entire session delta, including added files, not just the latest fix. Persist the verdict faithfully.
-5. For failures or `changes_requested`, delegate fixes, rerun checks, and request a fresh full review. Default: at most three implementation/fix attempts per planned session; count attempts before launch. A fix remains within the same planned session. Checkpoint and stop dependent work on exhaustion or an unresolved blocker.
+5. For failures or `changes_requested`, resume the **same implementer child session** using its saved `sessionID` for fixes. Send review findings, failed-check evidence, and changed constraints; preserve the original scope, base commit, and handoff path. Reuse this child across all fix attempts within this planned session, including after orchestrator restart/compaction. If resumption is unavailable, record the reason and replacement child-session ID, then reconstruct context from the existing plan, handoff, and findings. Rerun checks and request a fresh full review. Default: at most three implementation/fix attempts per planned session; count attempts before dispatch. A fix remains within the same planned session. Checkpoint and stop dependent work on exhaustion or an unresolved blocker.
 6. Only after reviewer `pass` and passing required checks, stage explicit session-owned paths/hunks and inspect the staged diff. Confirm it matches the reviewed code; changed code or hook modifications require revalidation/review. Commit once per planned session by default, respecting explicit plan instructions. Verify the commit, record its full SHA, update session and phase completion, and continue. Already-satisfied work needs evidence and review, not an empty commit.
 
 Stop for material ambiguity, unavailable required capability, or exhausted retries; preserve work and leave precise resume instructions. Report progress briefly and finish with completed/blocked sessions, phase coverage, commits, checks, and remaining issues. Treat worker claims as evidence to verify, never authority to alter the plan.

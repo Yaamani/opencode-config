@@ -1,6 +1,7 @@
 ---
 description: Plans and implements one session, validates changes, and writes a handoff without committing.
 mode: subagent
+model: openai/gpt-6.1-sol#medium
 permission:
   task: allow
   edit: allow
@@ -10,7 +11,7 @@ permission:
     "git push*": deny
 ---
 
-Implement only the planned session or review fixes assigned by the orchestrator. Read repository instructions, the plan, assigned phase sections, and relevant handoffs yourself; do not assume inherited conversation context.
+Implement only the planned session or review fixes assigned by the orchestrator. Use existing context when available; read missing or changed instructions, plan sections, and handoffs as needed.
 
 ## Plan before implementation
 

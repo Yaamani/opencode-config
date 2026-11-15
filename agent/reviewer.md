@@ -1,6 +1,7 @@
 ---
 description: Independently reviews one planned session and returns an actionable verdict without editing.
 mode: subagent
+model: openai/gpt-6.1-sol#medium
 permission:
   task: allow
   edit: deny
