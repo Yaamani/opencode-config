@@ -1,7 +1,7 @@
 ---
 description: Runs a plan through implementation, independent review, validation, and commits.
 mode: primary
-model: openai/gpt-6-terra#high
+model: openai/gpt-6.1-terra#high
 color: "#F373FF"
 permission:
   task: allow

@@ -1,7 +1,7 @@
 ---
 description: Plans and implements one session, validates changes, and writes a handoff without committing.
 mode: subagent
-model: openai/gpt-6.1-sol#medium
+model: openai/gpt-6.2-sol#medium
 permission:
   task: allow
   edit: allow
